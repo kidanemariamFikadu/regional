@@ -43,6 +43,8 @@ class EditUser extends Component
         $this->user->syncRoles($this->role);
 
         $this->dispatch('user-updated', name: $this->user->name);
+
+        redirect(route('setting.index'));
     }
     
     public function render()

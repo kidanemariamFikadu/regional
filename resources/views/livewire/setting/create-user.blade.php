@@ -1,16 +1,16 @@
 <section class="w-full">
-    @include('partials.head', ['title' => __('Edit User')])
+    @include('partials.head', ['title' => __('Create User')])
 
     <div class="flex items
     -center justify-between">
-        <h1 class="text-2xl font-bold">{{ __('Edit User') }}</h1>
+        <h1 class="text-2xl font-bold">{{ __('Create User') }}</h1>
 
         <flux:link href="{{ route('setting.user-list') }}" wire:navigate>
             {{ __('Back') }}
         </flux:link>
     </div>
 
-    <form wire:submit.prevent="editUser" class="my-6 w-full space-y-6">
+    <form wire:submit.prevent="saveUser" class="my-6 w-full space-y-6">
         <flux:fieldset>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-6">
                 <div class="space-y-6 col-span-1">
@@ -31,6 +31,10 @@
                         @endif
                     </flux:checkbox.group>
 
+                    <flux:input wire:model="password" label="{{ __('Password') }}" type="password" name="password"
+                        badge="Required" />
+                    <flux:input wire:model="password_confirmation" label="{{ __('Retype Password') }}" type="password" name="password_confirmation"
+                        badge="Required" />
 
         </flux:fieldset>
         <div class="flex items-center gap-4">
