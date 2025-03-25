@@ -20,6 +20,9 @@
                     <flux:input wire:model="email" label="{{ __('Email') }}" type="email" name="email"
                         badge="Required" />
 
+                    <flux:input wire:model="phone_number" label="{{ __('Phone number') }}" type="tel"
+                        name="phone_number" badge="Required" />
+
                     <flux:checkbox.group wire:model="role" label="Notifications">
                         @foreach ($roleList as $roles)
                             <flux:checkbox wire:click="updateRole('{{ $roles->name }}')" label="{{ $roles->name }}"
@@ -31,7 +34,13 @@
                         @endif
                     </flux:checkbox.group>
 
-
+                    <flux:select wire:model="regionalOfficeId" label="{{ __('Regional Office') }}"
+                        name="regionalOfficeId" badge="Required">
+                        <option value="">{{ __('Select Regional Office') }}</option>
+                        @foreach ($regionalOffices as $regionalOffice)
+                            <option value="{{ $regionalOffice->id }}">{{ $regionalOffice->name }}</option>
+                        @endforeach
+                    </flux:select>
         </flux:fieldset>
         <div class="flex items-center gap-4">
             <div class="flex items-center justify-end">

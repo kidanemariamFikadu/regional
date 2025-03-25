@@ -17,6 +17,7 @@
                 </flux:navlist.group>
                 <flux:navlist.group heading="{{__('Setting')}}" expandable>
                     <flux:navlist.item :href="route('setting.user-list')" :current="request()->routeIs('setting.user-list')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+                    <flux:navlist.item :href="route('setting.regional-office.list')" :current="request()->routeIs('setting.regional-office.list')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.regional-office.list')" wire:navigate>{{ __('Regional Office') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

@@ -11,12 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regoinal_offices', function (Blueprint $table) {
+        Schema::create('regional_offices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('region');
             $table->string('country')->default('Ethiopia');
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('phone_number')->nullable()->after('email');
+            $table->unsignedBigInteger('regional_office_id')->nullable()->after('phone_number');
+            $table->foreign('regional_office_id')->references('id')->on('regional_offices');
+
         });
     }
 
@@ -25,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regoinal_offices');
+        Schema::dropIfExists('regional_offices');
     }
 };

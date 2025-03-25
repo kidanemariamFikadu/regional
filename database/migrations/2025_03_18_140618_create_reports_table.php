@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('regoinal_office_id')->references('id')->on('regoinal_offices')->onDelete('cascade');
+            $table->foreignId('regoinal_office_id')->references('id')->on('regional_offices')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('reporting_period')->nullable();
             $table->dateTime('submission_date')->nullable();

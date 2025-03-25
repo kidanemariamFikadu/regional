@@ -23,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'regional_office_id',
+        'phone_number',
+        'status',
     ];
 
     /**
@@ -57,6 +60,16 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    public function regionalOffice()
+    {
+        return $this->belongsTo(RegionalOffice::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     public function scopeSearch($query, $search)
