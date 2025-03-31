@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'regional_office_id',
         'phone_number',
+        'job_description_id',
         'status',
     ];
 
@@ -70,6 +71,11 @@ class User extends Authenticatable
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function jobDescription()
+    {
+        return $this->belongsTo(JobDescription::class);
     }
 
     public function scopeSearch($query, $search)

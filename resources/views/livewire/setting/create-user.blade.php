@@ -34,6 +34,14 @@
                         @endif
                     </flux:checkbox.group>
 
+                    <flux:select wire:model="job_description_id" label="{{ __('Job Description') }}"
+                        name="job_description_id" badge="Required">
+                        <option value="">{{ __('Select Job Description') }}</option>
+                        @foreach ($jobDescriptions as $jobDescription)
+                            <option value="{{ $jobDescription->id }}">{{ $jobDescription->name }}</option>
+                        @endforeach
+                    </flux:select>
+
                     <flux:select wire:model="regionalOfficeId" label="{{ __('Regional Office') }}"
                         name="regionalOfficeId" badge="Required">
                         <option value="">{{ __('Select Regional Office') }}</option>

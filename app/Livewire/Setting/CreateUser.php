@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Setting;
 
+use App\Models\JobDescription;
 use App\Models\RegionalOffice;
 use App\Models\User;
 use Livewire\Component;
@@ -16,6 +17,7 @@ class CreateUser extends Component
     public $password;
     public $password_confirmation;
     public $phone_number;
+    public $job_description_id;
 
     public function updateRole(){
 
@@ -30,6 +32,7 @@ class CreateUser extends Component
             "role" => "required|array|min:1",
             "role.*" => "required|exists:roles,name",
             "regionalOfficeId" => "required|exists:regional_offices,id",
+            "job_description_id" => "required|exists:job_descriptions,id",
         ]);
 
         $user = User::create([
@@ -38,6 +41,7 @@ class CreateUser extends Component
             "password" => bcrypt($this->password),
             "regional_office_id" => $this->regionalOfficeId,
             "phone_number" => $this->phone_number,
+            'job_description_id' => $this->job_description_id,
         ]);
 
         $user->syncRoles($this->role);
@@ -52,6 +56,7 @@ class CreateUser extends Component
         return view('livewire.setting.create-user', [
             'roleList' => Role::all(),
             'regionalOffices' => RegionalOffice::all(),
+            'jobDescriptions' => JobDescription::all(),
         ]);
     }
 }
