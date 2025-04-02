@@ -18,9 +18,14 @@
                 </x-action-message>
 
                 <div>
-                    <img src="{{ $imageUrl }}" alt="S3 Image" class="w-full h-auto">
+                    @if ($imageUrl)
+                        <audio id="audioPlayer" controls>
+                            <source src="{{ $imageUrl }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    @endif
                 </div>
-                {{$imageUrl}}
+                {{ $imageUrl }}
             </div>
         </flux:fieldset>
     </form>

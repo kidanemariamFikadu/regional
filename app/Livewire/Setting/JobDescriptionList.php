@@ -10,7 +10,7 @@ class JobDescriptionList extends Component
     public $search;
     public $sortBy = "name";
     public $sortDir = "asc";
-    public $perPage = 10;
+    public $perPage = 5;
     public $selectedDate = null;
 
     public $name;

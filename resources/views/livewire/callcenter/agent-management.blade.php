@@ -2,11 +2,7 @@
     @include('partials.head', ['title' => __('Users List')])
 
     <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold">{{ __('Users List') }}</h1>
-
-        <flux:link href="{{ route('setting.create-user') }}" wire:navigate>
-            {{ __('Create User') }}
-        </flux:link>
+        <h1 class="text-2xl font-bold">{{ __('Call center agent List') }}</h1>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -54,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($userList as $user)
+                @foreach ($agents as $user)
                     <tr
                         class="bg-white border-b dark:bg-black dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900">
                         <td class="px-6 py-4">
@@ -108,6 +104,7 @@
         </table>
 
         <div class="p-4 bg-gray-50 dark:bg-black dark:text-white">
-            {{ $userList->links() }}
+            {{ $agents->links() }}
         </div>
     </div>
+</div>

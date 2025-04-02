@@ -15,6 +15,9 @@
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist.group>
+                <flux:navlist.group heading="{{__('Call center')}}" expandable>
+                    <flux:navlist.item :href="route('call-center.agent-management')" :current="request()->routeIs('call-center.agent-management')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Agent Management') }}</flux:navlist.item>
+                </flux:navlist.group>
                 <flux:navlist.group heading="{{__('Setting')}}" expandable>
                     <flux:navlist.item :href="route('setting.user-list')" :current="request()->routeIs('setting.user-list')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
                     <flux:navlist.item :href="route('setting.regional-office.list')" :current="request()->routeIs('setting.regional-office.list')||request()->routeIs('setting.edit-regional-office')" wire:navigate>{{ __('Regional Office') }}</flux:navlist.item>

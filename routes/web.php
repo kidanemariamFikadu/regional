@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/setting/job-description-list', action: \App\Livewire\Setting\JobDescriptionList::class)->name('setting.job-description.list');
 
     Route::get('/call-center/index', action: \App\Livewire\CallCenter\Index::class)->name('call-center.index');
+    Route::get('/call-center/agent-management', action: \App\Livewire\Callcenter\AgentManagement::class)->name('call-center.agent-management');
 });
 
 require __DIR__ . '/auth.php';
