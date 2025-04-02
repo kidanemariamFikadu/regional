@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('agent_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('evaluation_month_id')->constrained('agent_evaluation_months')->onDelete('cascade');
             $table->string('file_url');
+            $table->string('call_type');
             $table->enum('status',['evaluated','not_evaluated'])->default('not_evaluated');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('evaluated_by')->nullable()->constrained('users')->onDelete('cascade');

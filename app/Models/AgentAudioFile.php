@@ -11,6 +11,7 @@ class AgentAudioFile extends Model
         "evaluation_month_id",
         "file_url",
         "status",
+        "call_type",
         "created_by",
         "evaluated_by",
         "evaluated_at",

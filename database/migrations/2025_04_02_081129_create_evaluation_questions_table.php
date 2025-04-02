@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('evaluation_questions', function (Blueprint $table) {
             $table->id();
+            $table->enum('category', ['Call Opening', 'Communication & Listening Skills','Issue Resolution','Professionalism & Courtesy','Call Closing','Compliance & Adherence']);
             $table->longText('Question');
             $table->integer('value');
             $table->enum('status', ['active', 'inactive'])->default('active');
