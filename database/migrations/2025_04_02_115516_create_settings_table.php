@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agent_evaluation_months', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('agent_id')->constrained('users')->onDelete('cascade');
-            $table->string('month');
-            $table->integer('total_score')->nullable();
-            $table->longText('remarks')->nullable();
+        Schema::create('settings', function (Blueprint $table) {
+            $table->string('key')->unique();
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agent_evaluation_months');
+        Schema::dropIfExists('settings');
     }
 };

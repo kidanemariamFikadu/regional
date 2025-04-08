@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class AgentAudioFile extends Model
 {
@@ -37,5 +38,17 @@ class AgentAudioFile extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function getFileAwsUrlAttribute()
+    {
+        return $this->imageUrl = Storage::disk('s3')->temporaryUrl(
+            $this->file_url,
+            now()->addMinutes(60),
+            [
+                'ResponseContentType' => 'audio/mpeg',
+                'ResponseContentDisposition' => 'inline; filename="' . $this->filename . '"',
+            ]
+        );
     }
 }

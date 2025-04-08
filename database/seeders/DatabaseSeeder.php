@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,5 +26,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $user->assignRole('Admin');
         User::factory(50)->create();
+        Setting::create([
+            'key'=>'active_month',
+            'value'=>date('Y-m'),
+        ]);
     }
 }

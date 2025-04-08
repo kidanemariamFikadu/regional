@@ -1,13 +1,12 @@
 <div>
-    @include('partials.head', ['title' => __('Regional Office List')])
+    @include('partials.head', ['title' => __('Agents List')])
 
     <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold">{{ __('Regional Office List') }}</h1>
+        <h1 class="text-2xl font-bold">{{ __('Agents List') }}</h1>
 
-        <flux:modal.trigger name="create-regional-office">
-            <flux:button class="mb-4">{{ __('Add Regional Office') }}</flux:button>
-        </flux:modal.trigger>
-
+        <flux:link href="{{ route('call-center.add-agent-audio') }}" wire:navigate>
+            {{ __('Add Agent Audio') }}
+        </flux:link>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -27,45 +26,53 @@
                 </div>
                 <input type="text" id="table-search" wire:model.live.debounce.300ms="search" name="search"
                     class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search for regional office">
+                    placeholder="Search for agent">
             </div>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-black dark:text-gray-400">
                 <tr>
-                    @include('components.includes.table-sortable-th', [
-                        'name' => 'name',
-                        'displayName' => 'Name',
-                    ])
-                    @include('components.includes.table-sortable-th', [
-                        'name' => 'region',
-                        'displayName' => 'Region',
-                    ])
-                    @include('components.includes.table-sortable-th', [
-                        'name' => 'country',
-                        'displayName' => 'Country',
-                    ])
+                    <th>Agent Name</th>
+                    <th scope="col" class="px-6 py-3 w-1/9">
+                        Month
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Result
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Remark
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Files/Evaluated
+                    </th>
                     <th scope="col" class="px-6 py-3">
                         Action
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($regionalOffices as $regionalOffice)
+                @foreach ($agentsUnderEvaluation as $agentUnderEvaluation)
                     <tr
                         class="bg-white border-b dark:bg-black dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900">
+                        <td class="px-6 py-4">
+                            {{ $agentUnderEvaluation->agent->name }}
+                        </td>
                         <th class="px-6 py-4">
-                            {{ $regionalOffice->name }}
+                            {{ $agentUnderEvaluation->month }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $regionalOffice->region }}
+                            {{ $agentUnderEvaluation->total_score ? $agentUnderEvaluation->total_score : 'Not Evaluated' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $regionalOffice->country }}
+                            {{ $agentUnderEvaluation->remarks }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ count($agentUnderEvaluation->filesPerMonth) }} / {{ count($agentUnderEvaluation->fileEvaluatedPermonth) }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="inline-flex items-center space-x-2">
-                                <flux:link href="{{ route('setting.edit-regional-office', $regionalOffice->id) }}" wire:navigate>
+                                <flux:link href="{{ route('call-center.add-agent-audio', $agentUnderEvaluation->id) }}"
+                                    wire:navigate>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -76,6 +83,11 @@
                                         <path d="m15 5 3 3" />
                                     </svg>
                                 </flux:link>
+                                <flux:separator vertical />
+                                <flux:link href="{{ route('call-center.evaluate-agent-call', $agentUnderEvaluation->id) }}"
+                                    wire:navigate>
+                                    {{__("Evaluate")}}
+                                </flux:link>
                             </div>
                         </td>
                     </tr>
@@ -84,30 +96,7 @@
         </table>
 
         <div class="p-4 bg-gray-50 dark:bg-black dark:text-white">
-            {{ $regionalOffices->links() }}
+            {{ $agentsUnderEvaluation->links() }}
         </div>
     </div>
-
-    <flux:modal name="create-regional-office" variant="flyout" wire:model.self="showCreateRegionalOfficeModal">
-        <form wire:submit.prevent="saveRegionalOffice" class="my-6 w-full space-y-6">
-            <div class="space-y-6">
-                <div>
-                    <flux:heading size="lg">Regional Office</flux:heading>
-                    <flux:text class="mt-2">Add new regional office</flux:text>
-                </div>
-
-                <flux:input label="{{ __('Name') }}" placeholder="{{ __('Name') }}" wire:model="name" />
-
-                <flux:input lable="{{ __('Region') }}" placeholder="{{ __('Region') }}" wire:model="region" />
-
-                <flux:input lable="{{ __('Country') }}" placeholder="{{ __('Country') }}" wire:model="country" />
-
-                <div class="flex">
-                    <flux:spacer />
-
-                    <flux:button type="submit" variant="primary">Save changes</flux:button>
-                </div>
-            </div>
-        </form>
-    </flux:modal>
 </div>
