@@ -20,6 +20,7 @@
                     <flux:navlist.group heading="{{__('Evaluation')}}" expandable>
                         <flux:navlist.item :href="route('call-center.evaluation')" :current="request()->routeIs('call-center.evaluation')||request()->routeIs('call-center.evaluation-question')" wire:navigate>{{ __('Evaluation Questions') }}</flux:navlist.item>
                         <flux:navlist.item :href="route('call-center.manage-agent-audio')" :current="request()->routeIs('call-center.manage-agent-audio')||request()->routeIs('call-center.add-agent-audio')||request()->routeIs('call-center.evaluate-agent-call')" wire:navigate>{{ __('Manage Agent Audio') }}</flux:navlist.item>
+                        <flux:navlist.item :href="route('call-center.agent_audio_report')" :current="request()->routeIs('call-center.agent_audio_report')" wire:navigate>{{ __('Agent Audio Report') }}</flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist.group>
                 <flux:navlist.group heading="{{__('Setting')}}" expandable>

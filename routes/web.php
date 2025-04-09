@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/call-center/manage-agent-audio', action: \App\Livewire\CallCenter\ManageAgentAudio::class)->name('call-center.manage-agent-audio');
     Route::get('/call-center/add-agent-audio/{agent_id?}', \App\Livewire\CallCenter\AddAgentAudio::class)->name('call-center.add-agent-audio');
     Route::get('/call-center/evaluate-agent-call/{agentEvaluationMonth}', action: \App\Livewire\CallCenter\EvaluateAgentCall::class)->name('call-center.evaluate-agent-call');
+    Route::get('/call-center/agent_audio_report/', action: \App\Livewire\CallCenter\AgentAudioReport::class)->name('call-center.agent_audio_report');
 });
 
 require __DIR__ . '/auth.php';

@@ -1,8 +1,7 @@
 <div>
 
     @if (session('error'))
-        <div id="alertBox" class="bg-red-400 border border-red-400 text-white px-4 py-3 rounded relative"
-            role="alert">
+        <div id="alertBox" class="bg-red-400 border border-red-400 text-white px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error: </strong>
             <span class="block sm:inline">{{ session('error') }}</span>
             <span onclick="document.getElementById('alertBox').remove()"
@@ -18,6 +17,38 @@
     @endif
     @include('partials.head', ['title' => __('Agents List')])
 
+    <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 dark:text-white">
+        <div>
+            <label for="startMonth" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('Start Month') }}</label>
+            <flux:select wire:model="startMonth" id="startMonth" name="startMonth" class="dark:bg-black" wire:change="onOptionSelected('',$event.target.value,'')">
+                <option value="">{{ __('Start Month') }}</option>
+                @foreach ($months as $month)
+                    <option value="{{ $month }}">{{ $month }}</option>
+                @endforeach
+            </flux:select>
+        </div>
+
+        <div>
+            <label for="endMonth" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('End Month') }}</label>
+            <flux:select wire:model="endMonth" id="endMonth" name="endMonth" class="dark:bg-black" wire:change="onOptionSelected('','',$event.target.value)">
+                <option value="">{{ __('End Month') }}</option>
+                @foreach ($months as $month)
+                    <option value="{{ $month }}">{{ $month }}</option>
+                @endforeach
+            </flux:select>
+        </div>
+
+        <div>
+            <label for="agent_id" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('Agent') }}</label>
+            <flux:select wire:model="agent_id" id="agent_id" name="agent_id" class="dark:bg-black" wire:change="onOptionSelected($event.target.value,'','')">
+                <option value="">{{ __('All agents') }}</option>
+                @foreach ($agents as $agent)
+                    <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                @endforeach
+            </flux:select>
+        </div>
+    </form>
+
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">{{ __('Agents List') }}</h1>
 
@@ -29,7 +60,7 @@
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
-                <div
+                {{-- <div
                     class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -40,10 +71,10 @@
                 </div>
                 <input type="text" id="table-search" wire:model.live.debounce.300ms="search" name="search"
                     class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search for agent">
+                    placeholder="Search for agent"> --}}
             </div>
             <div>
-                <flux:button wire:click="closeMonth">{{ __('Close Month') }}</flux:button>
+                <flux:button wire:click="exportPdf">{{ __('Export') }}</flux:button>
             </div>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -68,7 +99,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($agentsUnderEvaluation as $agentUnderEvaluation)
+                @foreach ($reportData as $agentUnderEvaluation)
                     <tr
                         class="bg-white border-b dark:bg-black dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900">
                         <td class="px-6 py-4">
@@ -115,7 +146,7 @@
         </table>
 
         <div class="p-4 bg-gray-50 dark:bg-black dark:text-white">
-            {{ $agentsUnderEvaluation->links() }}
+            {{ $reportData->links() }}
         </div>
     </div>
 </div>

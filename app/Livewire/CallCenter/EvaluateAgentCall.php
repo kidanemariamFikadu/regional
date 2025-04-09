@@ -28,7 +28,7 @@ class EvaluateAgentCall extends Component
         }
     }
 
-    function onOptionSelected($value)
+    public function onOptionSelected($value)
     {
         $this->audioId = $value;
         if ($value) {
