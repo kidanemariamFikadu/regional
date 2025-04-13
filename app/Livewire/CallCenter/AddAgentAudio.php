@@ -76,7 +76,9 @@ class AddAgentAudio extends ModalComponent
     public function render()
     {
         return view('livewire.call-center.add-agent-audio', [
-            'agents' => User::where('job_description_id', 12)->get(),
+            'agents' => User::whereHas('jobDescription', function ($query) {
+            $query->where('name', 'Call center agent');
+            })->get(),
         ]);
     }
 }
