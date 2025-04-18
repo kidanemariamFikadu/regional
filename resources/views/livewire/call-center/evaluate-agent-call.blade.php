@@ -14,8 +14,8 @@
         <flux:fieldset>
             <div class="lg:grid-cols-2 gap-x-4 gap-y-6">
                 <div class="space-y-6 col-span-1">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="col-span-1">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+                        <div class="md:col-span-2 col-span-1">
                             <flux:select wire:model="audioId" label="{{ __('Audio file') }}" name="audioId"
                                 badge="Required" wire:change="onOptionSelected($event.target.value)">
                                 <option value="">{{ __('Select Audio File') }}</option>
@@ -29,9 +29,9 @@
                             </flux:select>
                         </div>
 
-                        <div class="col-span-1">
+                        <div class="md:col-span-1 col-span-1">
                             @if ($audioUrl)
-                                <audio id="audioPlayer" controls>
+                                <audio id="audioPlayer" controls class="w-full">
                                     <source src="{{ $audioUrl }}" type="audio/mpeg">
                                     Your browser does not support the audio element.
                                 </audio>
@@ -58,10 +58,10 @@
                                     <div class="w-full max-w-md mx-auto flex flex-col gap-1">
                                         <div class="flex items-center justify-between mb-1">
                                             <label for="slider{{ $evaluationQuestion->id }}"
-                                                class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                                                class="text-sm font-medium text-gray-700 dark:text-white">
                                                 {{ $evaluationQuestion->Question }}
                                                 <span
-                                                    class="ml-1.5 text-zinc-800/70 text-xs bg-zinc-800/5 px-1.5 py-0.5 rounded-[4px] dark:bg-white/10 dark:text-zinc-300">
+                                                    class="ml-1.5 text-zinc-800/70 text-xs bg-zinc-800/5 px-1.5 py-0.5 rounded-[4px] dark:bg-white/10 dark:text-white">
                                                     Required
                                                 </span>
                                             </label>
@@ -74,7 +74,7 @@
                                                 wire:model="responses.{{ $evaluationQuestion->id }}"
                                                 oninput="document.getElementById('sliderValue{{ $evaluationQuestion->id }}').textContent = this.value" />
                                             <span id="sliderValue{{ $evaluationQuestion->id }}"
-                                                class="text-sm text-gray-800 dark:text-gray-100 font-medium">
+                                                class="text-sm text-gray-800 dark:text-white font-medium">
                                                 {{ $responses[$evaluationQuestion->id] ?? 0 }}
                                             </span>
                                         </div>
