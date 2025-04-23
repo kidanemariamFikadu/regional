@@ -1,6 +1,6 @@
 <div>
 
-    @if (session('error'))
+    @if(session('error'))
         <div id="alertBox" class="bg-red-400 border border-red-400 text-white px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error: </strong>
             <span class="block sm:inline">{{ session('error') }}</span>
@@ -17,34 +17,34 @@
     @endif
     @include('partials.head', ['title' => __('Agents List')])
 
-    <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 dark:text-white">
-        <div>
+    <form class="flex flex-wrap gap-4 dark:text-white">
+        <div class="mb-4">
             <label for="startMonth" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('Start Month') }}</label>
-            <flux:select wire:model="startMonth" id="startMonth" name="startMonth" class="dark:bg-black" wire:change="onOptionSelected('',$event.target.value,'')">
-                <option value="">{{ __('Start Month') }}</option>
-                @foreach ($months as $month)
-                    <option value="{{ $month }}">{{ $month }}</option>
-                @endforeach
+            <flux:select wire:model="startMonth" id="startMonth" name="startMonth" class="dark:bg-black w-full" wire:change="onOptionSelected('',$event.target.value,'')">
+            <option value="">{{ __('Start Month') }}</option>
+            @foreach ($months as $month)
+                <option value="{{ $month }}">{{ $month }}</option>
+            @endforeach
             </flux:select>
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="endMonth" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('End Month') }}</label>
-            <flux:select wire:model="endMonth" id="endMonth" name="endMonth" class="dark:bg-black" wire:change="onOptionSelected('','',$event.target.value)">
-                <option value="">{{ __('End Month') }}</option>
-                @foreach ($months as $month)
-                    <option value="{{ $month }}">{{ $month }}</option>
-                @endforeach
+            <flux:select wire:model="endMonth" id="endMonth" name="endMonth" class="dark:bg-black w-full" wire:change="onOptionSelected('','',$event.target.value)">
+            <option value="">{{ __('End Month') }}</option>
+            @foreach ($months as $month)
+                <option value="{{ $month }}">{{ $month }}</option>
+            @endforeach
             </flux:select>
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="agent_id" class="block text-sm font-medium text-gray-700 dark:text-white">{{ __('Agent') }}</label>
-            <flux:select wire:model="agent_id" id="agent_id" name="agent_id" class="dark:bg-black" wire:change="onOptionSelected($event.target.value,'','')">
-                <option value="">{{ __('All agents') }}</option>
-                @foreach ($agents as $agent)
-                    <option value="{{ $agent->id }}">{{ $agent->name }}</option>
-                @endforeach
+            <flux:select wire:model="agent_id" id="agent_id" name="agent_id" class="dark:bg-black w-full" wire:change="onOptionSelected($event.target.value,'','')">
+            <option value="">{{ __('All agents') }}</option>
+            @foreach ($agents as $agent)
+                <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+            @endforeach
             </flux:select>
         </div>
     </form>

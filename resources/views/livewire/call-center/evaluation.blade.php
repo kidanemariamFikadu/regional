@@ -3,10 +3,11 @@
 
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">{{ __('Evaluation Question') }}</h1>
-
-        <flux:link href="{{ route('call-center.evaluation-question') }}" wire:navigate>
-            {{ __('Create Question') }}
-        </flux:link>
+        @if(Auth::user()->hasAnyRole(['Admin','Call center evaluator','Call center admin']))
+            <flux:link href="{{ route('call-center.evaluation-question') }}" wire:navigate>
+                {{ __('Create Question') }}
+            </flux:link>
+        @endif
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -83,6 +84,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="inline-flex items-center space-x-2">
+                                @if(Auth::user()->hasAnyRole(['Admin','Call center evaluator','Call center admin']))
                                 <flux:link href="{{ route('call-center.evaluation-question', $evaluation->id) }}"
                                     wire:navigate>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -95,6 +97,7 @@
                                         <path d="m15 5 3 3" />
                                     </svg>
                                 </flux:link>
+                                @endif
                                 {{-- <flux:separator vertical />
                                 <flux:link href="{{ route('setting.edit-user', $evaluation->id) }}" wire:navigate>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

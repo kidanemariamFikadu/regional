@@ -21,9 +21,11 @@
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">{{ __('Agents List') }}</h1>
 
-        <flux:link href="{{ route('call-center.add-agent-audio') }}" wire:navigate>
-            {{ __('Add Agent Audio') }}
-        </flux:link>
+        @if(Auth::user()->hasAnyRole(['Admin','Call center evaluator','Call center admin']))
+            <flux:link href="{{ route('call-center.add-agent-audio') }}" wire:navigate>
+                {{ __('Add Agent Audio') }}
+            </flux:link>
+        @endif
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -43,7 +45,9 @@
                     placeholder="Search for agent">
             </div>
             <div>
+                @if(Auth::user()->hasAnyRole(['Admin','Call center admin']))
                 <flux:button wire:click="closeMonth">{{ __('Close Month') }}</flux:button>
+                @endif
             </div>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -89,24 +93,26 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="inline-flex items-center space-x-2">
-                                <flux:link href="{{ route('call-center.add-agent-audio', $agentUnderEvaluation->id) }}"
-                                    wire:navigate>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="lucide lucide-pencil-line  w-5 h-5">
-                                        <path d="M12 20h9" />
-                                        <path
-                                            d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" />
-                                        <path d="m15 5 3 3" />
-                                    </svg>
-                                </flux:link>
-                                <flux:separator vertical />
-                                <flux:link
-                                    href="{{ route('call-center.evaluate-agent-call', $agentUnderEvaluation->id) }}"
-                                    wire:navigate>
-                                    {{ __('Evaluate') }}
-                                </flux:link>
+                                @if(Auth::user()->hasAnyRole(['Call center evaluator','Call center admin']))
+                                    <flux:link href="{{ route('call-center.add-agent-audio', $agentUnderEvaluation->id) }}"
+                                        wire:navigate>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-pencil-line  w-5 h-5">
+                                            <path d="M12 20h9" />
+                                            <path
+                                                d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z" />
+                                            <path d="m15 5 3 3" />
+                                        </svg>
+                                    </flux:link>
+                                    <flux:separator vertical />
+                                    <flux:link
+                                        href="{{ route('call-center.evaluate-agent-call', $agentUnderEvaluation->id) }}"
+                                        wire:navigate>
+                                        {{ __('Evaluate') }}
+                                    </flux:link>
+                                @endif
                             </div>
                         </td>
                     </tr>

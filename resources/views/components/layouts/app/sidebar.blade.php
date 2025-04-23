@@ -12,22 +12,30 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
-                <flux:navlist.group heading="{{__('Call center')}}" expandable>
-                    <flux:navlist.item :href="route('call-center.agent-management')" :current="request()->routeIs('call-center.agent-management')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Agent Management') }}</flux:navlist.item>
-                    <flux:navlist.group heading="{{__('Evaluation')}}" expandable>
-                        <flux:navlist.item :href="route('call-center.evaluation')" :current="request()->routeIs('call-center.evaluation')||request()->routeIs('call-center.evaluation-question')" wire:navigate>{{ __('Evaluation Questions') }}</flux:navlist.item>
-                        <flux:navlist.item :href="route('call-center.manage-agent-audio')" :current="request()->routeIs('call-center.manage-agent-audio')||request()->routeIs('call-center.add-agent-audio')||request()->routeIs('call-center.evaluate-agent-call')" wire:navigate>{{ __('Manage Agent Audio') }}</flux:navlist.item>
-                        <flux:navlist.item :href="route('call-center.agent_audio_report')" :current="request()->routeIs('call-center.agent_audio_report')" wire:navigate>{{ __('Agent Audio Report') }}</flux:navlist.item>
+                    <flux:navlist.group :heading="__('Platform')" class="grid">
+                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    </flux:navlist.group> 
+                @if(Auth::user()->hasAnyRole(['Admin','Call center agent','Call center evaluator','Call center admin']))
+                    <flux:navlist.group heading="{{__('Call center')}}" expandable>
+                        @if(Auth::user()->hasAnyRole(['Admin','Call center agent','Call center evaluator','Call center admin']))
+                            <flux:navlist.item :href="route('call-center.agent-management')" :current="request()->routeIs('call-center.agent-management')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Agent Management') }}</flux:navlist.item>
+                        @endif
+                        @if(Auth::user()->hasAnyRole(['Admin','Call center agent','Call center evaluator','Call center admin']))
+                            <flux:navlist.group heading="{{__('Evaluation')}}" expandable>
+                                <flux:navlist.item :href="route('call-center.evaluation')" :current="request()->routeIs('call-center.evaluation')||request()->routeIs('call-center.evaluation-question')" wire:navigate>{{ __('Evaluation Questions') }}</flux:navlist.item>
+                                <flux:navlist.item :href="route('call-center.manage-agent-audio')" :current="request()->routeIs('call-center.manage-agent-audio')||request()->routeIs('call-center.add-agent-audio')||request()->routeIs('call-center.evaluate-agent-call')" wire:navigate>{{ __('Manage Agent Audio') }}</flux:navlist.item>
+                                <flux:navlist.item :href="route('call-center.agent_audio_report')" :current="request()->routeIs('call-center.agent_audio_report')" wire:navigate>{{ __('Agent Audio Report') }}</flux:navlist.item>
+                            </flux:navlist.group>
+                        @endif
                     </flux:navlist.group>
-                </flux:navlist.group>
+                @endif
+                @if(Auth::user()->hasAnyRole(['Admin']))
                 <flux:navlist.group heading="{{__('Setting')}}" expandable>
                     <flux:navlist.item :href="route('setting.user-list')" :current="request()->routeIs('setting.user-list')||request()->routeIs('setting.edit-user')||request()->routeIs('setting.create-user')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
                     <flux:navlist.item :href="route('setting.regional-office.list')" :current="request()->routeIs('setting.regional-office.list')||request()->routeIs('setting.edit-regional-office')" wire:navigate>{{ __('Regional Office') }}</flux:navlist.item>
                     <flux:navlist.item :href="route('setting.job-description.list')" :current="request()->routeIs('setting.job-description.list')" wire:navigate>{{ __('Job Description') }}</flux:navlist.item>
                 </flux:navlist.group>
+                @endif
             </flux:navlist>
 
             <flux:spacer />

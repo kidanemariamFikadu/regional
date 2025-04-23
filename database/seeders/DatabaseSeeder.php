@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JobDescription;
 use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,7 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            PermissionSeed::class,
             RoleSeed::class,
+            JobDescriptionSeed::class,
+            EvaluationQuestionsSeeder::class,
         ]);
 
         $user = User::factory()->create([

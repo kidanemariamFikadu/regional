@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/setting/regional-office-list', action: \App\Livewire\Setting\RegionalOfficeList::class)->name('setting.regional-office.list');
     Route::get('/setting/edit-regional-office/{regionalOffice}', action: \App\Livewire\Setting\EditRegionalOffice::class)->name('setting.edit-regional-office');
+    Route::get('/setting/role-management', action: \App\Livewire\Setting\RoleManagement::class)->name('setting.role-management');
 
     Route::get('/setting/job-description-list', action: \App\Livewire\Setting\JobDescriptionList::class)->name('setting.job-description.list');
 

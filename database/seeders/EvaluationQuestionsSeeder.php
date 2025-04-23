@@ -30,6 +30,12 @@ class EvaluationQuestionsSeeder extends Seeder
             ['category' => 'Compliance & Adherence', 'Question' => 'Did the agent follow company scripts, guidelines, and compliance policies?', 'value' => 10, 'status' => 'active', 'created_by' => 1, 'updated_by' => 1, 'created_at' => '2025-04-02 10:48:52', 'updated_at' => '2025-04-02 10:48:52'],
         ];
 
-        DB::table('evaluation_questions')->insert($questions);
+        foreach ($questions as $question) {
+            DB::table('evaluation_questions')
+              ->updateOrInsert(
+              ['category' => $question['category'], 'Question' => $question['Question']],
+              $question
+              );
+        }
     }
 }

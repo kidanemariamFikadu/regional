@@ -41,6 +41,10 @@ class JobDescriptionSeed extends Seeder
             ['name' => 'Dev. Team'],
             ['name' => 'Farmer Care Team'],
         ];
-        DB::table('job_descriptions')->insert($roles);        
+        foreach ($roles as $role) {
+            JobDescription::updateOrCreate(
+            ['name' => $role['name']]
+            );
+        }
     }
 }

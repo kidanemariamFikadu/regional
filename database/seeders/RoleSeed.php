@@ -13,7 +13,12 @@ class RoleSeed extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name'=>'Admin','guard_name'=>'web']);
-        Role::create(['name'=>'User','guard_name'=>'web']);
+        Role::updateOrCreate(['name'=>'Admin','guard_name'=>'web']);
+        Role::updateOrCreate(['name'=>'Call center agent','guard_name'=>'web']);
+        Role::updateOrCreate(['name'=>'Call center evaluator','guard_name'=>'web']);
+        Role::updateOrCreate(['name'=>'Call center admin','guard_name'=>'web']);
+
+        $role = Role::where('name','Admin')->first();
+        $role->syncPermissions(\Spatie\Permission\Models\Permission::all());
     }
 }
