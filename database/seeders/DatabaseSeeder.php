@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             PermissionSeed::class,
             RoleSeed::class,
             JobDescriptionSeed::class,
-            EvaluationQuestionsSeeder::class,
         ]);
 
         $user = User::factory()->create([
@@ -29,10 +28,20 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '0912345678',
         ]);
         $user->assignRole('Admin');
-        
+
+        $this->call([
+            PermissionSeed::class,
+            RoleSeed::class,
+            JobDescriptionSeed::class,
+        ]);
+
+        $this->call([
+            EvaluationQuestionsSeeder::class,
+        ]);
+
         Setting::create([
-            'key'=>'active_month',
-            'value'=>date('Y-m'),
+            'key' => 'active_month',
+            'value' => date('Y-m'),
         ]);
     }
 }
