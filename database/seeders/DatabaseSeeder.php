@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '0912345678',
         ]);
         $user->assignRole('Admin');
-        User::factory(50)->create();
+        
         Setting::create([
             'key'=>'active_month',
             'value'=>date('Y-m'),
